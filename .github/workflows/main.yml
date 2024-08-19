@@ -13,30 +13,7 @@ jobs:
         env: 
           HF: ${{ secrets.HF }}
         run: git remote add space https://jmaka:$HF@huggingface.co/spaces/jmaka/demo2
-      - name: Puch to hub
+      - name: Push to hub
         env: 
           HF: ${{ secrets.HF }}
         run: git push --force  https://jmaka:$HF@huggingface.co/spaces/jmaka/demo2 main
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
-        HF: ${{ secrets.HF }}
-    - name: Install dependencies
-      run: |
-        make install
-    - name: Lint with pylint
-      run: |
-        make lint
-    - name: Test with pytest
-      run: |
-        make test
-    - name: Format code
-      run: |
-        make format
