@@ -12,11 +12,11 @@ jobs:
       - name: Add remote
         env: 
           HF: ${{ secrets.HF }}
-        run: git remote add space https://jmaka:$HF@huggingface.co/spaces/jmaka/demo2
+        run: git remote add space https://huggingface.co/spaces/jmaka/demo2
       - name: Puch to hub
         env: 
           HF: ${{ secrets.HF }}
-        run: git push --force  https://jmaka:$HF@huggingface.co/spaces/jmaka/demo2 main
+        run: git push --force  https://huggingface.co/spaces/jmaka/demo2 main
   build:
 
     runs-on: ubuntu-latest
