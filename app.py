@@ -9,4 +9,4 @@ def predict(prompt):
 with gr.Blocks() as demo:
     textbox = gr.Textbox(lines=5, placeholder="Enter text to summarize here...")
     gr.Interface(predict, textbox, "text")
-    demo.launch()
+    demo.launch(share=True)
