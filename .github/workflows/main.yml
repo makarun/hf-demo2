@@ -1,0 +1,42 @@
+name: Python application test with Github Actions
+
+on: [push]
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 0
+      - name: Add remote
+        env: 
+          HF: ${{ secrets.HF }}
+        run: git remote add space https://huggingface.co/spaces/jmaka/demo2
+      - name: Puch to hub
+        env: 
+          HF: ${{ secrets.HF }}
+        run: git push --force  https://huggingface.co/spaces/jmaka/demo2 main
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+        HF: ${{ secrets.HF }}
+    - name: Install dependencies
+      run: |
+        make install
+    - name: Lint with pylint
+      run: |
+        make lint
+    - name: Test with pytest
+      run: |
+        make test
+    - name: Format code
+      run: |
+        make format
